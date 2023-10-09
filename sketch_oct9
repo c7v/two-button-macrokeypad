@@ -11,20 +11,45 @@ void setup()
   TrinketHidCombo.begin();
 }
 
+
 void loop()
 {
   uint32_t now = millis();
+  uint8_t btn_state[2]={0};
+  uint8_t do_some[2]={0};
 
-  if (!digitalRead(PIN_BTN_A) && !digitalRead(PIN_BTN_B))
+  //Read btn A once
+  if(!digitalRead(PIN_BTN_A) && btn_state[0]==0)
+  {
+          do_some[0]=1;
+          btn_state[0]=1;
+  }
+  if(digitalRead(PIN_BTN_A) && btn_state[0]==1)
+  {
+          btn_state[0]=0;
+  }
+
+  //Read btn B once
+  if(!digitalRead(PIN_BTN_B) && btn_state[1]==0)
+  {
+          do_some[1]=1;
+          btn_state[1]=1;
+  }
+  if(digitalRead(PIN_BTN_B) && btn_state[1]==1)
+  {
+          btn_state[1]=0;
+  }
+
+  if (do_some[0] && do_some[1])
   {
     TrinketHidCombo.pressKey(KEYCODE_MOD_LEFT_CONTROL, KEYCODE_A);
   } else {
-   if (!digitalRead(PIN_BTN_B))
+   if (do_some[0])
     {
        TrinketHidCombo.pressKey(KEYCODE_MOD_LEFT_CONTROL, KEYCODE_C);
     }
 
-    if (!digitalRead(PIN_BTN_A))
+    if (do_some[1])
     {
       TrinketHidCombo.pressKey(KEYCODE_MOD_LEFT_CONTROL, KEYCODE_V);
     }
