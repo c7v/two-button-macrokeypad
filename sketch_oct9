@@ -3,10 +3,15 @@
 #define PIN_BTN_A 0
 #define PIN_BTN_B 2
 
+
+uint8_t btn_state[2];
+
 void setup()
 {
   pinMode(PIN_BTN_A, INPUT_PULLUP);
   pinMode(PIN_BTN_B, INPUT_PULLUP);
+  btn_state[0]=0;
+  btn_state[1]=0;
 
   TrinketHidCombo.begin();
 }
@@ -15,7 +20,7 @@ void setup()
 void loop()
 {
   uint32_t now = millis();
-  uint8_t btn_state[2]={0};
+  
   uint8_t do_some[2]={0};
 
   //Read btn A once
