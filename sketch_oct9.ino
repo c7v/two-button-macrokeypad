@@ -3,7 +3,6 @@
 #define PIN_BTN_A 0
 #define PIN_BTN_B 2
 
-
 uint8_t btn_state[2];
 
 void setup()
@@ -15,7 +14,6 @@ void setup()
 
   TrinketHidCombo.begin();
 }
-
 
 void loop()
 {
